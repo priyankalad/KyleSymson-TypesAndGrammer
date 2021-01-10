@@ -102,8 +102,31 @@ if(!window.atob){
 //...
 }
 </code></pre>
-</li>
-</ul>
 <p>– This is because, there is no <code>ReferenceError</code> thrown if you try to access an object property (even on the global/window object) that doesn’t exist</p>
 <p>– On the other hand, this approach should be avoided especially if your code needs to run in multiple environments, where global variable may not be called “window”.</p>
+</li>
+<li>
+<p>Imagine a utility function that you want others to copy-paste into their programs or modules, in which you want to check to see if the including program has defined a certain variable or not.</p>
+<pre><code>(function(){
+	function FeatureXYZ(){/*...*/}
+	
+	function doSomethingCool(){
+		var helper = (typeof FeatureXYZ !=="undefined")
+		?FeatureXYZ
+		: function(){/*..default feature..*/}
+	}
+	doSomethingCool();
+})();
+</code></pre>
+</li>
+<li>
+<p>Some developers prefer a design pattern called “dependency injection”,  where instead of doSomethingCool() inspecting implicitly for FeatureXYZ to be defines outside/around it, it would need to have the dependency explicitly passed in, like:</p>
+<pre><code>function doSomethingCool(FeatureXYZ){
+	var helper = FeatureXYZ || function(){/*.. default feature..*/};
+	var val = helper();
+	//
+}
+</code></pre>
+</li>
+</ul>
 
