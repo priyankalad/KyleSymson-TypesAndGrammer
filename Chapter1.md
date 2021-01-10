@@ -104,4 +104,6 @@ if(!window.atob){
 </code></pre>
 </li>
 </ul>
+<p>– This is because, there is no <code>ReferenceError</code> thrown if you try to access an object property (even on the global/window object) that doesn’t exist</p>
+<p>– On the other hand, this approach should be avoided especially if your code needs to run in multiple environments, where global variable may not be called “window”.</p>
 
