@@ -128,7 +128,7 @@ c; //"oof"
 </li>
 <li>
 <p>The implementations of Javascript’s numbers is based on the “IEEE 754” standard, often called “floating-point”. Javascript specifically uses “double precision” format (aka 64-bit binary) of the standard</p>
-<p><em><strong>Numeric Syntax</strong></em></p>
+<p><em><strong><u>Numeric Syntax</u></strong></em></p>
 <ul>
 <li>
 <p>By default, Most numbers are outputted as base-10 					   decimals, with trailing fractional 0s removed.</p>
@@ -203,6 +203,21 @@ var oneMillionOneHundredThousand = 1.1E6; // means 1.1 * 10^6
 0o363 //octal for 243 //o or O can be used.
 0b11110011 //binary for 243 //b or B can be used.
 </code></pre>
+<p>Always use lower case predicates (0x,0b,0o) to avoid confusion</p>
+</li>
+</ul>
+<p><em><strong><u>Small Decimal Values</u></strong></em></p>
+<ul>
+<li>
+<p>The most infamous side effect of using binary floating-point 		numbers is:</p>
+<pre><code>	`0.1 + 0.2 === 0.3; //false`
+</code></pre>
+</li>
+<li>
+<p>The representations for 0.1 and 0.2 in binary floating point are not exact, so when they are added, the result is not exactly 0.3. It’s <em>really</em> close, 0.30000000000000004, but if your comparison fails, “close” is irrelevant.</p>
+</li>
+<li>
+<p>Common practice is to use a tiny “rounding error” value as the <em>tolerance</em> for comparison.</p>
 </li>
 </ul>
 </li>
