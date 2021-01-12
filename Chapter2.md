@@ -184,7 +184,24 @@ a.toPrecision(6); //"42.5900"
 <li>
 <p>Since . is a valid numeric character, it will be interpreted as part of the number literal, if possible, instead of being interpreted as a property accessor:</p>
 <pre><code>//invalid syntax:
-42.toFixed(3); //Syntax error
+42.toFixed(3); //Syntax error //because 42. is a valid nunber, so there's no . property operator present to make the .toFixed access
+
+//these are all valid:
+(42).toFixed(3); //"42.000"
+0.42.toFixed(3); //"0.420"
+42..toFixed(3); //"42.000"
+42 .toFixed(3); //"42.000"
+</code></pre>
+</li>
+<li>
+<p>numbers can also be specified in exponent form (for large numbers), binary, octal and hexadecimal forms.</p>
+<pre><code>E=10
+var oneThousand = 1E3; //means 1 * 10^3
+var oneMillionOneHundredThousand = 1.1E6; // means 1.1 * 10^6
+
+0xf3 //hexdecimal for 243 //x or X can be used.
+0o363 //octal for 243 //o or O can be used.
+0b11110011 //binary for 243 //b or B can be used.
 </code></pre>
 </li>
 </ul>
