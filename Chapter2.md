@@ -151,6 +151,24 @@ of a decimal value after the ., if 0, is optional</p>
 var b = 42.;
 </code></pre>
 </li>
+<li>
+<p>Very large or very small numbers will by default be outputted in exponent form, the same as the output of the toExponential() method:</p>
+<pre><code>var a = 5E10;
+a;//50000000000
+a.toExponential(); //"5e+10"
+
+var b=  a*a;
+b; //2.5e+21;
+
+var c = 1/a;
+c; // 2e-11
+</code></pre>
+</li>
+<li>
+<p>Because <code>number</code> values can be boxed with the Number object wrapper,  <code>number</code> values can access methods  (toFixed , toPrecision) that are built into the Number.prototype.</p>
+<pre><code>
+</code></pre>
+</li>
 </ul>
 </li>
 </ul>
