@@ -166,7 +166,25 @@ c; // 2e-11
 </li>
 <li>
 <p>Because <code>number</code> values can be boxed with the Number object wrapper,  <code>number</code> values can access methods  (toFixed , toPrecision) that are built into the Number.prototype.</p>
-<pre><code>
+<pre><code>var a = 42.59;
+a.toFixed(0); //"43"
+a.toFixed(1); //"42.6"
+a.toFixed(2); //"42.59" 
+a.toFixed(3); //"42.590"
+a.toFixed(4); //"42.5900"
+
+a.toPrecision(1); //"4e+1"
+a.toPrecision(2); //"43"
+a.toPrecision(3); //"42.6"
+a.toPrecision(4); //"42.59"
+a.toPrecision(5); //"42.590"
+a.toPrecision(6); //"42.5900"
+</code></pre>
+</li>
+<li>
+<p>Since . is a valid numeric character, it will be interpreted as part of the number literal, if possible, instead of being interpreted as a property accessor:</p>
+<pre><code>//invalid syntax:
+42.toFixed(3); //Syntax error
 </code></pre>
 </li>
 </ul>
