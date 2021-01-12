@@ -128,8 +128,29 @@ c; //"oof"
 </li>
 <li>
 <p>The implementations of Javascript’s numbers is based on the “IEEE 754” standard, often called “floating-point”. Javascript specifically uses “double precision” format (aka 64-bit binary) of the standard</p>
+<p><em><strong>Numeric Syntax</strong></em></p>
 <ul>
-<li><strong>Numeric Syntax</strong></li>
+<li>
+<p>By default, Most numbers are outputted as base-10 					   decimals, with trailing fractional 0s removed.</p>
+<pre><code>var a = 42.300;
+var b = 42.0;
+a; // 42.3
+b; // 42
+</code></pre>
+</li>
+<li>
+<p>The leading portion of a decimal value, if 0, is optional</p>
+<pre><code>var a = 0.42;
+var b = .42;
+</code></pre>
+</li>
+<li>
+<p>Similarly, the trailing portion (the fractional)<br>
+of a decimal value after the ., if 0, is optional</p>
+<pre><code>var a = 42.0;
+var b = 42.;
+</code></pre>
+</li>
 </ul>
 </li>
 </ul>
