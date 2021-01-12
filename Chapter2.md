@@ -37,6 +37,100 @@ a.length //14
 </ul>
 <h2 id="array-likes"><strong>Array-Likes</strong></h2>
 <ul>
-<li></li>
+<li>
+<p>There will be occasions where you need to convert an array-like value (a numerically indexed collection of values) in to a true array, so that you can call array utilities (like indexOf, concat, forEach).</p>
+</li>
+<li>
+<p>Examples of array-like values are list of DOM elements, <code>arguments</code>	object exposed by functions (as of ES6, deprecated).</p>
+</li>
+<li>
+<p><code>slice</code> utility (without parameters) can be used to convert such values into true array</p>
+<pre><code>function foo(){
+	var arr = Array.prototype.slice.call(arguments);
+	arr.push("bam");
+	console.log(arr);
+}
+foo("bar","baz"); //["bar","baz","bam"]
+</code></pre>
+</li>
+<li>
+<p>In ES6, this conversion can be done using a built-in utility Array.from(…)</p>
+<pre><code>var arr = Array.from(arguments);
+</code></pre>
+</li>
+</ul>
+<h2 id="strings"><strong>Strings</strong></h2>
+<ul>
+<li>
+<p>Javascript strings are really not the same as arrays of characters.</p>
+</li>
+<li>
+<p>Strings do have a shallow resemblance to arrays. For instance, both of them have a <code>length</code> property, an <code>indexOf</code> method and a <code>concat</code> method</p>
+<pre><code>var a = "foo";
+var b = ["f","o","o"];
+</code></pre>
+</li>
+<li>
+<p>Javascript strings are immutable while arrays are mutable.</p>
+<pre><code>a[1]="0"; //correct approach is a.charAt(1)for string
+b[1]="0";
+a;//"foo";
+b;//["f","0","o"]
+</code></pre>
+</li>
+<li>
+<p>None of the string methods that alter its contents can modify in-place, but rather must create and return new strings. By contract, many of the array methods that change array contents actually do modify in-place.</p>
+<pre><code>c= a.toUpperCase();
+a===c; //false
+a; //"foo"
+c; //"FOO"
+</code></pre>
+</li>
+<li>
+<p>We can borrow non-mutation array methods against our string, so that we can make use of array methods.</p>
+<pre><code>a.join; //undefined
+a.map; //undefined
+
+Ex1: var c = Array.prototype.join.call(a,"-");
+Ex2:
+ var d = Array.prototype.map.call(a, function(v)				 	{
+	return v.toUpperCase()+".";
+}).join("");
+
+c; //"f-o-o"
+d; //"F.O.O."
+
+Ex3: a.reverse //undefined
+	b.reverse(); //["o","0","f"]
+</code></pre>
+</li>
+<li>
+<p>Unfortunately this “borrowing” doesn’t work with array mutatos because strings are immutable and can’t be modified in-place</p>
+<pre><code>Array.prototype.reverse.call(a);
+//Uncaught TypeError: Cannot assign to read only property '0' of object '[object String]'
+</code></pre>
+</li>
+<li>
+<p>Below is the workaround to reverse a string</p>
+<pre><code>var c = a.split("").reverse().join("");
+c; //"oof"
+//this approach doesn't work with complex(unicode) characters in them
+</code></pre>
+</li>
+<li>
+<p>If you are more commonly doing tasks on your “strings” that treat them as basically arrays of characters, perhaps its better to just actually store them as arrays rather than as strings. You can always call <code>join("")</code> whenever you actually need a string representation.</p>
+</li>
+</ul>
+<h2 id="numbers"><strong>Numbers</strong></h2>
+<ul>
+<li>
+<p>Javascript has just one numeric type: <code>number</code>. This type includes both integer values and fractional decimal numbers</p>
+</li>
+<li>
+<p>The implementations of Javascript’s numbers is based on the “IEEE 754” standard, often called “floating-point”. Javascript specifically uses “double precision” format (aka 64-bit binary) of the standard</p>
+<ul>
+<li><strong>Numeric Syntax</strong></li>
+</ul>
+</li>
 </ul>
 
