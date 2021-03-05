@@ -244,6 +244,49 @@ numbersCloseEnoughToEqual(0.0000001,0.0000002); //false
 </li>
 </ul>
 <p><em><strong><u>Safe Integer Ranges</u></strong></em></p>
+<ul>
+<li>
+<p>Because of how numbers are represented , there is a range of “safe” values for the whole number “integers”, and it’s significantly less than Number.MAX_VALUE.</p>
+</li>
+<li>
+<p>The maximum integer that can “safely” be represented is 2^53 -1, which is 9007199254740991 (9 quadrillion) and minimum value is -9007199254740991. In ES6, These values are predefined as Number.MAX_SAFE_INTEGER and Number.MIN_SAFE_INTEGER respectively.</p>
+</li>
+</ul>
+<p><em><strong><u>Testing for Integers</u></strong></em></p>
+<ul>
+<li>To test, if a value is an integer, ES6-specified  Number.isInteger(…) is used.</li>
+</ul>
+<pre><code>    Number.isInteger(42);    //true		
+    Number.isInteger(42.000);    //true		
+    Number.isInteger(42.3);    //false	
+</code></pre>
+<ul>
+<li>
+<p>Polyfill for Number.isInteger()</p>
+<pre><code>if(!Number.isInteger){
+	Number.isInteger = function(num){
+		return typeof num=="number" &amp;&amp; num%1==0;
+	}
+}
+</code></pre>
+</li>
+<li>
+<p>To test, if a value is an safe integer, ES6-specified  Number.isSafeInteger(…) is used.</p>
+<pre><code>Number.isSafeInteger(Number.MAX_SAFE_INTEGER); //true
+Number.isSafeInteger(Math.pow(2,53)); //false
+Number.isSafeInteger(Math.pow(2,53)-1); //true
+</code></pre>
+</li>
+<li>
+<p>Polyfill for Number.isSafeInteger()</p>
+<pre><code>if(!Number.isSafeInteger){
+	Number.isSafeInteger = function(num){
+		return Number.isNumber(num) &amp;&amp; Math.abs(num)&lt;=Number.MAX_SAFE_INTEGER;
+	}
+}
+</code></pre>
+</li>
+</ul>
 </li>
 </ul>
 
