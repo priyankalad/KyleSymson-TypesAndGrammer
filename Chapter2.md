@@ -217,9 +217,33 @@ var oneMillionOneHundredThousand = 1.1E6; // means 1.1 * 10^6
 <p>The representations for 0.1 and 0.2 in binary floating point are not exact, so when they are added, the result is not exactly 0.3. It’s <em>really</em> close, 0.30000000000000004, but if your comparison fails, “close” is irrelevant.</p>
 </li>
 <li>
-<p>Common practice is to use a tiny “rounding error” value as the <em>tolerance</em> for comparison.</p>
+<p>Common practice is to use a tiny “rounding error” value as the <em>tolerance</em> for comparison, which is often called “machine epsilon”, which is commonly 2^-52 (2.220446049250313e-16).</p>
+</li>
+<li>
+<p>As of ES6, Number.EPSILON is predefined with this tolerance.</p>
+<pre><code>//polyfill for pre-ES6:
+if(!Number.EPSILON){
+	Number.EPSILON = Math.pow(2,-52);
+}
+</code></pre>
+</li>
+<li>
+<p>We can use Number.EPSILON to compare two numbers for equality (within rounding error tolerance)</p>
+<pre><code>function numbersCloseEnoughToEqual(n1, n2){
+	return Math.abs(n1-n2)&lt;Number.EPSILON;
+}
+numbersCloseEnoughToEqual(0.1+0.2, 0.3) //true
+numbersCloseEnoughToEqual(0.0000001,0.0000002); //false
+</code></pre>
+</li>
+<li>
+<p>Maximum floating-point value can be represented is roughly 1.798e+308, predefined as Number.MAX_VALUE.</p>
+</li>
+<li>
+<p>On the small end, Number.MIN_VALUE is roughly 5e-324, which isn’t negative, but is really close to zero!</p>
 </li>
 </ul>
+<p><em><strong><u>Safe Integer Ranges</u></strong></em></p>
 </li>
 </ul>
 
