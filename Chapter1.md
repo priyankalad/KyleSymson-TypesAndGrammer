@@ -26,7 +26,7 @@
 <li>
 <p>test for a null using its type<br>
 <code>var a =null</code><br>
-<code>(a! &amp;&amp; a ==="object")//true</code></p>
+<code>(!a &amp;&amp; a ==="object")//true</code></p>
 </li>
 <li>
 <p>Type of function<br>
