@@ -254,13 +254,13 @@ numbersCloseEnoughToEqual(0.0000001,0.0000002); //false
 </ul>
 <p><em><strong><u>Testing for Integers</u></strong></em></p>
 <ul>
-<li>To test, if a value is an integer, ES6-specified  Number.isInteger(…) is used.</li>
-</ul>
+<li>
+<p>To test, if a value is an integer, ES6-specified  Number.isInteger(…) is used.</p>
 <pre><code>    Number.isInteger(42);    //true		
     Number.isInteger(42.000);    //true		
     Number.isInteger(42.3);    //false	
 </code></pre>
-<ul>
+</li>
 <li>
 <p>Polyfill for Number.isInteger()</p>
 <pre><code>if(!Number.isInteger){
@@ -287,6 +287,59 @@ Number.isSafeInteger(Math.pow(2,53)-1); //true
 </code></pre>
 </li>
 </ul>
+<p><em><strong><u>32-Bit (Signed) Integers</u></strong></em></p>
+<ul>
+<li>
+<p>While integers can range up to roughly 9 quadrillion safely (53 bits), there are some numeric operations (e.g. bitwise) that are only defined for 32 bit numbers, so the safe range for numbers used in that way must be much smaller. (from Math.pow(-2,31) to Math.pow(2,31)-1)</p>
+</li>
+<li>
+<p>To  force a number value in a to 32-bit signed integer value, use a|0.</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="special-values"><strong>Special Values</strong></h2>
+<p><em><strong><u>The nonvalue Values</u></strong></em></p>
+<ul>
+<li>
+<p>For both <code>undefined</code> and <code>null</code>, the label is both its type and value.</p>
+</li>
+<li>
+<p>Both <code>undefined</code> and <code>null</code> are often taken to be interchangeable as either empty values or non values</p>
+</li>
+<li>
+<p>Other developers prefer to distinguish between them with nuance. For example:<br>
+<code>null</code> is an empty value  and <code>undefined</code> is a  missing value.<br>
+or<br>
+<code>undefined</code> hasn’t had a value yet  and <code>null</code> had a value  but doesn’t anymore.</p>
+</li>
+<li>
+<p><code>null</code> is a special keyword and not an identifier (cannot be used as a variable name), while <code>undefined</code> is an identifier.</p>
+</li>
+</ul>
+<p><em><strong><u>Undefined</u></strong></em></p>
+<ul>
+<li>In non-strict mode, its possible to assign a value to the globally provided <code>undefined</code> identifier.<pre><code>function foo(){
+	undefined=2; //really bad idea!
+}
+function foo(){
+	"use strict";
+	undefined=2; //TypeError!
+}
+</code></pre>
+</li>
+<li>In both strict and non-strict mode, you can create a local variable of the name <code>undefined</code>, but again , this is a terrible idea!</li>
+</ul>
+<p><em><strong><u>void operator</u></strong></em></p>
+<ul>
+<li>
+<p>The expression void  “voids” out any value , so that the result of the expression is always the <code>undefined</code> value.</p>
+</li>
+<li>
+<p>It doesn’t modify the existing value, it just ensures that no value comes back from the operator expression. There is no practical difference between void 0, void 1 and undefined</p>
+<pre><code>var a=2;
+console.log(void a, a) // undefined 42
+</code></pre>
 </li>
 </ul>
 
