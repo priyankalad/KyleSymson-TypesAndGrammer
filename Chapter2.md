@@ -342,4 +342,22 @@ console.log(void a, a) // undefined 42
 </code></pre>
 </li>
 </ul>
+<h2 id="special-numbers"><strong>Special Numbers</strong></h2>
+<p><em><strong><u>The not number, number</u></strong></em></p>
+<ul>
+<li>
+<p>Any mathematic operation you perform without both operands being <code>number</code> will result in the operation failing to produce a valid number, in which case you will get <code>NaN</code> value</p>
+</li>
+<li>
+<p>Type of NaN is <code>number</code></p>
+</li>
+<li>
+<p>NaN is a very special value in that it’s never equal to another NaN value</p>
+<pre><code>var a = 2/"foo";
+a === NaN //wrong way to compare if value is a valid number
+
+isNaN(a) //correct way
+</code></pre>
+</li>
+</ul>
 
