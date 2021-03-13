@@ -359,5 +359,55 @@ a === NaN //wrong way to compare if value is a valid number
 isNaN(a) //correct way
 </code></pre>
 </li>
+<li>
+<p>The job of isNaN is basically , “test if the thing passed in is either not a number or is a number”. But that’s not quite accurate.</p>
+<pre><code>window.isNaN(2/"foo"); //true;
+window.isNaN("foo"); //true --- ouch!
+</code></pre>
+<p>Clearly “foo” is literally not a number, but it’s definitely not the NaN value either! This bug has been in JS since the very beginning (over 19 years of ouch).</p>
+</li>
+<li>
+<p>Below is the replacement polyfill utility in ES6</p>
+<pre><code>if(!Number.isNaN){
+    Number.isNaN = function(n){
+   	 return (typeof n ==="number" &amp;&amp; window.isNaN(n));
+    }
+}
+
+// even more easier way
+if(!Number.isNaN){
+    Number.isNaN = function(n){
+   	return n!==n;
+    }
+}
+</code></pre>
+</li>
+<li>
+<p>If you’re currently using just isNaN(…) in a program, the sad reality is your program has a bug, even if you haven’t been bitten yet!</p>
+</li>
+</ul>
+<p><em><strong><u>Infinities</u></strong></em></p>
+<ul>
+<li>
+<p>Developers from traditional compiled languages like C are probably used to seeing either a compiler error or runtime exception, like “divide by zero”, for an operation like <code>var a = 1/0;</code></p>
+</li>
+<li>
+<p>However in JS, this operation is well-defined and results in the value <code>Infinity</code>(aka Number.POSITIVE_INFINITY).</p>
+<pre><code>var a = 1/0 //Infinity
+var b = -1/0 //-Infinity
+</code></pre>
+</li>
+<li>
+<p>JS uses finite numeric representation (IEEE 754 floating point), so contrary to pure mathematics, it seems it is possible to overflow even with an operation like addition or subtraction, in which case, you’d get Infinity or -Infinity</p>
+<pre><code>var a= Number.MAX_VALUE; //1.7976931348623157e+308
+a+a //Infinity
+</code></pre>
+</li>
+<li>
+<p>According to the spec, if the operation like addition results in a value that’s too big to represent, the IEEE 754 “rounds to nearest” mode specifies what the result should be.</p>
+<pre><code>Number.MAX_VALUE+Math.pow(2,969) //closer to max value, so it rounds down
+Number.MAX_VALUE+Math.pow(2,970) //closer to Infinity, so it rounds up
+</code></pre>
+</li>
 </ul>
 
